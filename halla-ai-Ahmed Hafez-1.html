@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>حلّها AI | AH Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+:root {
+  --bg: #0b1120;
+  --bg-card: #111827;
+  --bg-elevated: #1e293b;
+  --border: #334155;
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --primary: #6366f1;
+  --primary-hover: #818cf8;
+  --primary-dark: #4f46e5;
+  --accent: #22d3ee;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 10px 40px rgba(0,0,0,0.4);
+  --font: 'Cairo', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.7;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.25), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(34, 211, 238, 0.08), transparent);
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(11, 17, 32, 0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0.9rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-icon {
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: white;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+}
+
+.logo-text { display: flex; flex-direction: column; }
+.logo-name { font-weight: 800; font-size: 1.25rem; letter-spacing: -0.02em; }
+.logo-sub { font-size: 0.7rem; color: var(--text-muted); font-weight: 500; }
+
+.nav-actions { display: flex; gap: 0.5rem; align-items: center; }
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+}
+.mobile-menu.open { display: flex; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+}
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { background: var(--bg-elevated); color: var(--text); }
+.btn-admin {
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  color: white;
+}
+.btn-admin:hover { filter: brightness(1.1); }
+.btn-solve {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  background: linear-gradient(135deg, #06b6d4, #6366f1);
+  color: white;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(6, 182, 212, 0.3);
+  margin-top: 0.5rem;
+}
+.btn-solve:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(6, 182, 212, 0.4);
+}
+.btn-full { width: 100%; }
+.btn-sm { padding: 0.4rem 0.8rem; font-size: 0.85rem; }
+.btn-danger { background: var(--danger); color: white; }
+.btn-success { background: var(--success); color: white; }
+
+.page { display: none; animation: fadeIn 0.3s ease; }
+.page.active { display: block; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+.hero {
+  text-align: center;
+  padding: 3rem 1.25rem 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.hero h1 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+}
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent), var(--primary-hover));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-desc {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+.badge {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+}
+.solve-section {
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  padding: 0 1.25rem;
+}
+.card-title {
+  font-size: 1.35rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.result-card { margin-top: 1.5rem; }
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.result-body {
+  line-height: 1.9;
+  font-size: 1rem;
+}
+.result-body h2 {
+  font-size: 1.15rem;
+  color: var(--accent);
+  margin: 1.25rem 0 0.5rem;
+}
+.result-body h2:first-child { margin-top: 0; }
+.result-body p { margin-bottom: 0.5rem; }
+.result-body ul, .result-body ol { padding-right: 1.5rem; margin-bottom: 0.75rem; }
+.result-body code, .result-body pre {
+  background: var(--bg-elevated);
+  padding: 0.15rem 0.4rem;
+  border-radius: 6px;
+  font-family: monospace;
+  direction: ltr;
+  display: inline-block;
+}
+.result-body pre {
+  display: block;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 0.75rem 0;
+}
+
+.form-group { margin-bottom: 1.15rem; }
+.form-group label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+.input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+.textarea { resize: vertical; min-height: 120px; }
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.upload-zone {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--bg);
+  position: relative;
+}
+.upload-zone:hover, .upload-zone.dragover {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.08);
+}
+.upload-icon { font-size: 2.2rem; margin-bottom: 0.5rem; }
+.upload-content p { font-weight: 600; margin-bottom: 0.25rem; }
+.upload-hint { font-size: 0.8rem; color: var(--text-muted); }
+.upload-preview { position: relative; }
+.upload-preview img {
+  max-width: 100%;
+  max-height: 220px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+.btn-remove {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--danger);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card {
+  max-width: 440px;
+  margin: 2.5rem auto;
+  padding: 2rem;
+}
+.auth-card h2 { text-align: center; margin-bottom: 0.35rem; }
+.auth-sub {
+  text-align: center;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+.auth-switch {
+  text-align: center;
+  margin-top: 1.25rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+.auth-switch a { color: var(--primary-hover); text-decoration: none; font-weight: 600; }
+
+.error-msg {
+  background: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+.success-msg {
+  background: rgba(16, 185, 129, 0.15);
+  color: #6ee7b7;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.admin-header {
+  max-width: 1100px;
+  margin: 1.5rem auto 1rem;
+  padding: 0 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.admin-header h1 { font-size: 1.5rem; }
+.admin-toolbar {
+  max-width: 1100px;
+  margin: 0 auto 1rem;
+  padding: 0 1.25rem;
+  display: flex;
+  gap: 0.75rem;
+}
+.admin-toolbar .input { flex: 1; }
+#page-admin .card {
+  max-width: 1100px;
+  margin: 0 auto 2rem;
+  padding: 0;
+  overflow: hidden;
+}
+.table-wrap { overflow-x: auto; }
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.users-table th, .users-table td {
+  padding: 0.85rem 1rem;
+  text-align: right;
+  border-bottom: 1px solid var(--border);
+}
+.users-table th {
+  background: var(--bg-elevated);
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.users-table tr:hover td { background: rgba(99, 102, 241, 0.05); }
+.users-table .empty { text-align: center; color: var(--text-muted); padding: 2rem; }
+.status-active {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.status-disabled {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.actions-cell { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 1rem;
+}
+.modal[hidden] {
+  display: none !important;
+}
+.modal-content {
+  width: 100%;
+  max-width: 420px;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  z-index: 201;
+}
+.modal-content h3 { margin-bottom: 1.25rem; }
+.modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+.footer-brand {
+  font-weight: 700;
+  color: var(--primary-hover);
+  margin-top: 0.25rem;
+  font-size: 1rem;
+}
+
+@media (max-width: 700px) {
+  .nav-actions { display: none; }
+  .menu-toggle { display: block; }
+  .form-row { grid-template-columns: 1fr; }
+  .hero { padding: 2rem 1rem 1.5rem; }
+  .card { padding: 1.25rem; }
+  .admin-toolbar { flex-direction: column; }
+  .users-table th, .users-table td { padding: 0.65rem 0.6rem; font-size: 0.8rem; }
+}
+
+</style>
+</head>
+<body>
+  <!-- شريط التنقل -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="/" class="logo" onclick="showPage('home'); return false;">
+        <span class="logo-icon">✦</span>
+        <div class="logo-text">
+          <span class="logo-name">حلّها AI</span>
+          <span class="logo-sub">AH Studio</span>
+        </div>
+      </a>
+      <div class="nav-actions" id="navActions">
+        <button class="btn btn-ghost" onclick="showPage('login')">تسجيل الدخول</button>
+        <button class="btn btn-primary" onclick="showPage('register')">إنشاء حساب</button>
+        <button class="btn btn-admin" onclick="showPage('admin-login')">دخول المشرف</button>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="القائمة">☰</button>
+    </div>
+  </nav>
+
+  <!-- القائمة الجانبية للموبايل -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="btn btn-ghost" onclick="showPage('login'); closeMenu()">تسجيل الدخول</button>
+    <button class="btn btn-primary" onclick="showPage('register'); closeMenu()">إنشاء حساب</button>
+    <button class="btn btn-admin" onclick="showPage('admin-login'); closeMenu()">دخول المشرف</button>
+  </div>
+
+  <main id="app">
+    <!-- ===== الصفحة الرئيسية ===== -->
+    <section id="page-home" class="page active">
+      <div class="hero">
+        <div class="hero-content">
+          <h1>حل أي سؤال <span class="gradient-text">بذكاء اصطناعي</span></h1>
+          <p class="hero-desc">اكتب سؤالك أو ارفع صورة للمسألة، واحصل على حل مفصل خطوة بخطوة مع الشرح الكامل.</p>
+          <div class="hero-badges">
+            <span class="badge">رياضيات</span>
+            <span class="badge">فيزياء</span>
+            <span class="badge">كيمياء</span>
+            <span class="badge">أحياء</span>
+            <span class="badge">عربي</span>
+            <span class="badge">إنجليزي</span>
+            <span class="badge">+ المزيد</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="solve-section">
+        <div class="card solve-card">
+          <h2 class="card-title">حل السؤال الآن</h2>
+
+          <div class="form-group">
+            <label for="subject">المادة</label>
+            <select id="subject" class="input">
+              <option value="auto">تلقائي (يكتشف الذكاء الاصطناعي)</option>
+              <option value="الرياضيات">الرياضيات</option>
+              <option value="العلوم العامة">العلوم العامة</option>
+              <option value="الفيزياء">الفيزياء</option>
+              <option value="الكيمياء">الكيمياء</option>
+              <option value="الأحياء">الأحياء</option>
+              <option value="اللغة العربية">اللغة العربية</option>
+              <option value="اللغة الإنجليزية">اللغة الإنجليزية</option>
+              <option value="الدراسات الاجتماعية">الدراسات الاجتماعية</option>
+              <option value="أخرى">مادة أخرى</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="question">اكتب السؤال</label>
+            <textarea id="question" class="input textarea" rows="5" placeholder="مثال: أوجد قيمة س في المعادلة 2س + 5 = 17 ..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>أو ارفع صورة السؤال</label>
+            <div class="upload-zone" id="uploadZone">
+              <input type="file" id="imageInput" accept="image/*" capture="environment" hidden />
+              <div class="upload-content" id="uploadContent">
+                <div class="upload-icon">📷</div>
+                <p>اضغط لرفع صورة من الهاتف أو الكمبيوتر</p>
+                <span class="upload-hint">يدعم صور الكتب، الامتحانات، والمعادلات المكتوبة</span>
+              </div>
+              <div class="upload-preview" id="uploadPreview" hidden>
+                <img id="previewImg" alt="معاينة" />
+                <button type="button" class="btn-remove" id="removeImage" title="إزالة">✕</button>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-solve" id="solveBtn" onclick="solveQuestion()">
+            <span class="btn-text">حل السؤال وشرح الخطوات</span>
+            <span class="btn-loader" hidden>جاري الحل...</span>
+          </button>
+        </div>
+
+        <!-- نتيجة الحل -->
+        <div class="card result-card" id="resultCard" hidden>
+          <div class="result-header">
+            <h2>شرح الحل</h2>
+            <button class="btn btn-sm btn-ghost" onclick="document.getElementById('resultCard').hidden=true">إغلاق</button>
+          </div>
+          <div class="result-body" id="resultBody"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== تسجيل الدخول ===== -->
+    <section id="page-login" class="page">
+      <div class="auth-card card">
+        <h2>تسجيل الدخول</h2>
+        <p class="auth-sub">مرحباً بعودتك إلى حلّها AI</p>
+        <div class="form-group">
+          <label>اسم المستخدم</label>
+          <input type="text" id="loginUsername" class="input" placeholder="اسم المستخدم" autocomplete="username" />
+        </div>
+        <div class="form-group">
+          <label>كلمة المرور</label>
+          <input type="password" id="loginPassword" class="input" placeholder="••••••••" autocomplete="current-password" />
+        </div>
+        <div id="loginError" class="error-msg" hidden></div>
+        <button class="btn btn-primary btn-full" onclick="doLogin()">دخول</button>
+        <p class="auth-switch">ليس لديك حساب؟ <a href="#" onclick="showPage('register'); return false;">إنشاء حساب</a></p>
+      </div>
+    </section>
+
+    <!-- ===== إنشاء حساب ===== -->
+    <section id="page-register" class="page">
+      <div class="auth-card card">
+        <h2>إنشاء حساب جديد</h2>
+        <p class="auth-sub">انضم إلى آلاف الطلاب الذين يحلون واجباتهم بسهولة</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label>الاسم الأول *</label>
+            <input type="text" id="regFirstName" class="input" placeholder="أحمد" />
+          </div>
+          <div class="form-group">
+            <label>الاسم الثاني *</label>
+            <input type="text" id="regLastName" class="input" placeholder="محمد" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>رقم الهاتف *</label>
+          <input type="tel" id="regPhone" class="input" placeholder="05xxxxxxxx" />
+        </div>
+        <div class="form-group">
+          <label>اسم المستخدم *</label>
+          <input type="text" id="regUsername" class="input" placeholder="username" autocomplete="username" />
+        </div>
+        <div class="form-group">
+          <label>كلمة المرور *</label>
+          <input type="password" id="regPassword" class="input" placeholder="6 أحرف على الأقل" autocomplete="new-password" />
+        </div>
+        <div class="form-group">
+          <label>تأكيد كلمة المرور *</label>
+          <input type="password" id="regConfirm" class="input" placeholder="أعد كتابة كلمة المرور" autocomplete="new-password" />
+        </div>
+        <div id="regError" class="error-msg" hidden></div>
+        <div id="regSuccess" class="success-msg" hidden></div>
+        <button class="btn btn-primary btn-full" onclick="doRegister()">إنشاء الحساب</button>
+        <p class="auth-switch">لديك حساب؟ <a href="#" onclick="showPage('login'); return false;">تسجيل الدخول</a></p>
+      </div>
+    </section>
+
+    <!-- ===== دخول المشرف ===== -->
+    <section id="page-admin-login" class="page">
+      <div class="auth-card card">
+        <h2>دخول المشرف</h2>
+        <p class="auth-sub">أدخل كود المشرف للوصول إلى لوحة التحكم</p>
+        <div class="form-group">
+          <label>كود المشرف</label>
+          <input type="password" id="adminCode" class="input" placeholder="••••••••" />
+        </div>
+        <div id="adminLoginError" class="error-msg" hidden></div>
+        <button class="btn btn-admin btn-full" onclick="doAdminLogin()">دخول لوحة التحكم</button>
+        <p class="auth-switch"><a href="#" onclick="showPage('home'); return false;">العودة للرئيسية</a></p>
+      </div>
+    </section>
+
+    <!-- ===== لوحة المشرف ===== -->
+    <section id="page-admin" class="page">
+      <div class="admin-header">
+        <h1>لوحة تحكم المشرف</h1>
+        <button class="btn btn-ghost" onclick="adminLogout()">خروج</button>
+      </div>
+      <div class="admin-toolbar">
+        <input type="text" id="adminSearch" class="input" placeholder="بحث بالاسم أو الهاتف أو اسم المستخدم..." oninput="loadUsers()" />
+        <button class="btn btn-primary" onclick="loadUsers()">تحديث</button>
+      </div>
+      <div class="card">
+        <div class="table-wrap">
+          <table class="users-table" id="usersTable">
+            <thead>
+              <tr>
+                <th>الاسم الكامل</th>
+                <th>الهاتف</th>
+                <th>اسم المستخدم</th>
+                <th>تاريخ الإنشاء</th>
+                <th>آخر دخول</th>
+                <th>الحالة</th>
+                <th>إجراءات</th>
+              </tr>
+            </thead>
+            <tbody id="usersBody">
+              <tr><td colspan="7" class="empty">جاري التحميل...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- نافذة تعديل المستخدم -->
+    <div class="modal" id="editModal" hidden>
+      <div class="modal-content card">
+        <h3>تعديل بيانات المستخدم</h3>
+        <input type="hidden" id="editUserId" />
+        <div class="form-group">
+          <label>الاسم الأول</label>
+          <input type="text" id="editFirstName" class="input" />
+        </div>
+        <div class="form-group">
+          <label>الاسم الثاني</label>
+          <input type="text" id="editLastName" class="input" />
+        </div>
+        <div class="form-group">
+          <label>الهاتف</label>
+          <input type="text" id="editPhone" class="input" />
+        </div>
+        <div class="form-group">
+          <label>اسم المستخدم</label>
+          <input type="text" id="editUsername" class="input" />
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="saveUserEdit()">حفظ</button>
+          <button class="btn btn-ghost" onclick="closeEditModal()">إلغاء</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- نافذة إعادة تعيين كلمة المرور -->
+    <div class="modal" id="resetModal" hidden>
+      <div class="modal-content card">
+        <h3>إعادة تعيين كلمة المرور</h3>
+        <input type="hidden" id="resetUserId" />
+        <div class="form-group">
+          <label>كلمة المرور الجديدة</label>
+          <input type="password" id="resetPassword" class="input" placeholder="6 أحرف على الأقل" />
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="saveResetPassword()">حفظ</button>
+          <button class="btn btn-ghost" onclick="closeResetModal()">إلغاء</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>حلّها AI — منصة تعليمية ذكية</p>
+    <p class="footer-brand">AH Studio</p>
+  </footer>
+
+  <script>
+// ===== State =====
+let currentUser = null;
+let adminToken = null;
+let selectedImage = null;
+
+const API = '';
+
+// ===== Helpers =====
+function $(id) { return document.getElementById(id); }
+
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const page = $('page-' + name);
+  if (page) page.classList.add('active');
+  closeMenu();
+  window.scrollTo(0, 0);
+
+  if (name === 'admin' && adminToken) {
+    loadUsers();
+  }
+}
+
+function closeMenu() {
+  $('mobileMenu')?.classList.remove('open');
+}
+
+function formatDate(iso) {
+  if (!iso) return '—';
+  try {
+    return new Date(iso).toLocaleString('ar-SA', {
+      year: 'numeric', month: 'short', day: 'numeric',
+      hour: '2-digit', minute: '2-digit'
+    });
+  } catch { return iso; }
+}
+
+function simpleMarkdown(text) {
+  if (!text) return '';
+  let html = text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+  // Headers
+  html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+  html = html.replace(/^# (.+)$/gm, '<h2>$1</h2>');
+  // Bold
+  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  // Code blocks
+  html = html.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+  // Inline code
+  html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+  // Lists
+  html = html.replace(/^\d+\.\s+(.+)$/gm, '<li>$1</li>');
+  html = html.replace(/^[-*]\s+(.+)$/gm, '<li>$1</li>');
+  // Paragraphs
+  html = html.replace(/\n\n/g, '</p><p>');
+  html = '<p>' + html + '</p>';
+  html = html.replace(/<p><h2>/g, '<h2>').replace(/<\/h2><\/p>/g, '</h2>');
+  html = html.replace(/<p><li>/g, '<ul><li>').replace(/<\/li><\/p>/g, '</li></ul>');
+  html = html.replace(/<\/li>\n<li>/g, '</li><li>');
+  return html;
+}
+
+// ===== Auth UI =====
+function updateNav() {
+  const nav = $('navActions');
+  const mobile = $('mobileMenu');
+  if (!nav) return;
+
+  if (currentUser) {
+    nav.innerHTML = `
+      <span style="color:var(--text-muted);font-size:0.9rem">مرحباً، ${currentUser.firstName}</span>
+      <button class="btn btn-ghost" onclick="logout()">خروج</button>
+      <button class="btn btn-admin" onclick="showPage('admin-login')">دخول المشرف</button>
+    `;
+    if (mobile) {
+      mobile.innerHTML = `
+        <span style="color:var(--text-muted);padding:0.5rem">مرحباً، ${currentUser.firstName}</span>
+        <button class="btn btn-ghost" onclick="logout(); closeMenu()">خروج</button>
+        <button class="btn btn-admin" onclick="showPage('admin-login'); closeMenu()">دخول المشرف</button>
+      `;
+    }
+  } else {
+    nav.innerHTML = `
+      <button class="btn btn-ghost" onclick="showPage('login')">تسجيل الدخول</button>
+      <button class="btn btn-primary" onclick="showPage('register')">إنشاء حساب</button>
+      <button class="btn btn-admin" onclick="showPage('admin-login')">دخول المشرف</button>
+    `;
+    if (mobile) {
+      mobile.innerHTML = `
+        <button class="btn btn-ghost" onclick="showPage('login'); closeMenu()">تسجيل الدخول</button>
+        <button class="btn btn-primary" onclick="showPage('register'); closeMenu()">إنشاء حساب</button>
+        <button class="btn btn-admin" onclick="showPage('admin-login'); closeMenu()">دخول المشرف</button>
+      `;
+    }
+  }
+}
+
+function loadSession() {
+  const token = localStorage.getItem('token');
+  const user = localStorage.getItem('user');
+  if (token && user) {
+    try {
+      currentUser = JSON.parse(user);
+      updateNav();
+    } catch {}
+  }
+  const at = localStorage.getItem('adminToken');
+  if (at) adminToken = at;
+}
+
+function logout() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+  currentUser = null;
+  updateNav();
+  showPage('home');
+}
+
+function adminLogout() {
+  localStorage.removeItem('adminToken');
+  adminToken = null;
+  showPage('home');
+}
+
+// ===== Register =====
+async function doRegister() {
+  const errEl = $('regError');
+  const okEl = $('regSuccess');
+  errEl.hidden = true;
+  okEl.hidden = true;
+
+  const data = {
+    firstName: $('regFirstName').value.trim(),
+    lastName: $('regLastName').value.trim(),
+    phone: $('regPhone').value.trim(),
+    username: $('regUsername').value.trim(),
+    password: $('regPassword').value,
+    confirmPassword: $('regConfirm').value
+  };
+
+  if (!data.firstName || !data.lastName || !data.phone || !data.username || !data.password || !data.confirmPassword) {
+    errEl.textContent = 'جميع الحقول مطلوبة';
+    errEl.hidden = false;
+    return;
+  }
+
+  try {
+    const res = await fetch(API + '/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    const json = await res.json();
+    if (!res.ok) {
+      errEl.textContent = json.error || 'حدث خطأ';
+      errEl.hidden = false;
+      return;
+    }
+    okEl.textContent = 'تم إنشاء الحساب بنجاح! يمكنك تسجيل الدخول الآن.';
+    okEl.hidden = false;
+    setTimeout(() => showPage('login'), 1500);
+  } catch (e) {
+    errEl.textContent = 'تعذر الاتصال بالخادم';
+    errEl.hidden = false;
+  }
+}
+
+// ===== Login =====
+async function doLogin() {
+  const errEl = $('loginError');
+  errEl.hidden = true;
+
+  const username = $('loginUsername').value.trim();
+  const password = $('loginPassword').value;
+
+  if (!username || !password) {
+    errEl.textContent = 'أدخل اسم المستخدم وكلمة المرور';
+    errEl.hidden = false;
+    return;
+  }
+
+  try {
+    const res = await fetch(API + '/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+    const json = await res.json();
+    if (!res.ok) {
+      errEl.textContent = json.error || 'فشل تسجيل الدخول';
+      errEl.hidden = false;
+      return;
+    }
+    localStorage.setItem('token', json.token);
+    localStorage.setItem('user', JSON.stringify(json.user));
+    currentUser = json.user;
+    updateNav();
+    showPage('home');
+  } catch (e) {
+    errEl.textContent = 'تعذر الاتصال بالخادم';
+    errEl.hidden = false;
+  }
+}
+
+// ===== Admin Login =====
+async function doAdminLogin() {
+  const errEl = $('adminLoginError');
+  errEl.hidden = true;
+  const code = $('adminCode').value;
+
+  try {
+    const res = await fetch(API + '/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code })
+    });
+    const json = await res.json();
+    if (!res.ok) {
+      errEl.textContent = json.error || 'كود غير صحيح';
+      errEl.hidden = false;
+      return;
+    }
+    adminToken = json.token;
+    localStorage.setItem('adminToken', adminToken);
+    showPage('admin');
+  } catch (e) {
+    errEl.textContent = 'تعذر الاتصال بالخادم';
+    errEl.hidden = false;
+  }
+}
+
+// ===== Admin Users =====
+async function loadUsers() {
+  if (!adminToken) return;
+  const tbody = $('usersBody');
+  tbody.innerHTML = '<tr><td colspan="7" class="empty">جاري التحميل...</td></tr>';
+
+  const search = $('adminSearch')?.value || '';
+  try {
+    const res = await fetch(API + '/api/admin/users?search=' + encodeURIComponent(search), {
+      headers: { 'X-Admin-Token': adminToken }
+    });
+    if (res.status === 403) {
+      adminLogout();
+      return;
+    }
+    const json = await res.json();
+    const users = json.users || [];
+    if (users.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="7" class="empty">لا يوجد مستخدمون</td></tr>';
+      return;
+    }
+    tbody.innerHTML = users.map(u => `
+      <tr>
+        <td>${u.first_name} ${u.last_name}</td>
+        <td>${u.phone}</td>
+        <td>${u.username}</td>
+        <td>${formatDate(u.created_at)}</td>
+        <td>${formatDate(u.last_login)}</td>
+        <td><span class="status-${u.status}">${u.status === 'active' ? 'نشط' : 'معطل'}</span></td>
+        <td class="actions-cell">
+          <button class="btn btn-sm btn-ghost" onclick='openEdit(${JSON.stringify(u)})'>تعديل</button>
+          <button class="btn btn-sm btn-ghost" onclick="openReset('${u.id}')">كلمة المرور</button>
+          <button class="btn btn-sm ${u.status === 'active' ? 'btn-danger' : 'btn-success'}" onclick="toggleStatus('${u.id}')">
+            ${u.status === 'active' ? 'تعطيل' : 'تفعيل'}
+          </button>
+          <button class="btn btn-sm btn-danger" onclick="deleteUser('${u.id}', '${u.username}')">حذف</button>
+        </td>
+      </tr>
+    `).join('');
+  } catch (e) {
+    tbody.innerHTML = '<tr><td colspan="7" class="empty">خطأ في التحميل</td></tr>';
+  }
+}
+
+function openEdit(u) {
+  closeResetModal();
+  $('editUserId').value = u.id;
+  $('editFirstName').value = u.first_name;
+  $('editLastName').value = u.last_name;
+  $('editPhone').value = u.phone;
+  $('editUsername').value = u.username;
+  $('editModal').hidden = false;
+}
+
+function closeEditModal() {
+  $('editModal').hidden = true;
+}
+
+async function saveUserEdit() {
+  const id = $('editUserId').value;
+  const body = {
+    firstName: $('editFirstName').value.trim(),
+    lastName: $('editLastName').value.trim(),
+    phone: $('editPhone').value.trim(),
+    username: $('editUsername').value.trim()
+  };
+  try {
+    const res = await fetch(API + '/api/admin/users/' + id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Admin-Token': adminToken
+      },
+      body: JSON.stringify(body)
+    });
+    const json = await res.json();
+    if (!res.ok) { alert(json.error || 'خطأ'); return; }
+    closeEditModal();
+    loadUsers();
+  } catch { alert('خطأ في الاتصال'); }
+}
+
+function openReset(id) {
+  closeEditModal();
+  $('resetUserId').value = id;
+  $('resetPassword').value = '';
+  $('resetModal').hidden = false;
+}
+
+function closeResetModal() {
+  $('resetModal').hidden = true;
+}
+
+async function saveResetPassword() {
+  const id = $('resetUserId').value;
+  const newPassword = $('resetPassword').value;
+  if (!newPassword || newPassword.length < 6) {
+    alert('كلمة المرور يجب أن تكون 6 أحرف على الأقل');
+    return;
+  }
+  try {
+    const res = await fetch(API + '/api/admin/users/' + id + '/reset-password', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Admin-Token': adminToken
+      },
+      body: JSON.stringify({ newPassword })
+    });
+    const json = await res.json();
+    if (!res.ok) { alert(json.error || 'خطأ'); return; }
+    alert('تم إعادة تعيين كلمة المرور');
+    closeResetModal();
+  } catch { alert('خطأ في الاتصال'); }
+}
+
+async function toggleStatus(id) {
+  try {
+    const res = await fetch(API + '/api/admin/users/' + id + '/toggle-status', {
+      method: 'POST',
+      headers: { 'X-Admin-Token': adminToken }
+    });
+    const json = await res.json();
+    if (!res.ok) { alert(json.error || 'خطأ'); return; }
+    loadUsers();
+  } catch { alert('خطأ'); }
+}
+
+async function deleteUser(id, username) {
+  if (!confirm(`هل أنت متأكد من حذف حساب "${username}"؟ لا يمكن التراجع.`)) return;
+  try {
+    const res = await fetch(API + '/api/admin/users/' + id, {
+      method: 'DELETE',
+      headers: { 'X-Admin-Token': adminToken }
+    });
+    const json = await res.json();
+    if (!res.ok) { alert(json.error || 'خطأ'); return; }
+    loadUsers();
+  } catch { alert('خطأ'); }
+}
+
+// ===== Solve Question =====
+async function solveQuestion() {
+  const btn = $('solveBtn');
+  const btnText = btn.querySelector('.btn-text');
+  const btnLoader = btn.querySelector('.btn-loader');
+  const resultCard = $('resultCard');
+  const resultBody = $('resultBody');
+
+  const question = $('question').value.trim();
+  const subject = $('subject').value;
+
+  if (!question && !selectedImage) {
+    alert('اكتب سؤالاً أو ارفع صورة');
+    return;
+  }
+
+  btn.disabled = true;
+  btnText.hidden = true;
+  btnLoader.hidden = false;
+  resultCard.hidden = true;
+
+  const formData = new FormData();
+  formData.append('question', question);
+  formData.append('subject', subject);
+  if (selectedImage) {
+    formData.append('image', selectedImage);
+  }
+
+  try {
+    const res = await fetch(API + '/api/solve', {
+      method: 'POST',
+      body: formData
+    });
+    const json = await res.json();
+    if (!res.ok) {
+      resultBody.innerHTML = `<p style="color:#fca5a5">${json.error || 'حدث خطأ'}</p>`;
+      resultCard.hidden = false;
+      return;
+    }
+    resultBody.innerHTML = simpleMarkdown(json.answer);
+    resultCard.hidden = false;
+    resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch (e) {
+    resultBody.innerHTML = `<p style="color:#fca5a5">تعذر الاتصال بالخادم. تأكد أن الخادم يعمل.</p>`;
+    resultCard.hidden = false;
+  } finally {
+    btn.disabled = false;
+    btnText.hidden = false;
+    btnLoader.hidden = true;
+  }
+}
+
+// ===== Image Upload =====
+function setupUpload() {
+  const zone = $('uploadZone');
+  const input = $('imageInput');
+  const content = $('uploadContent');
+  const preview = $('uploadPreview');
+  const img = $('previewImg');
+  const removeBtn = $('removeImage');
+
+  zone.addEventListener('click', (e) => {
+    if (e.target === removeBtn) return;
+    input.click();
+  });
+
+  input.addEventListener('change', () => {
+    const file = input.files[0];
+    if (!file) return;
+    selectedImage = file;
+    const url = URL.createObjectURL(file);
+    img.src = url;
+    content.hidden = true;
+    preview.hidden = false;
+  });
+
+  removeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    selectedImage = null;
+    input.value = '';
+    content.hidden = false;
+    preview.hidden = true;
+    img.src = '';
+  });
+
+  zone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    zone.classList.add('dragover');
+  });
+  zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+  zone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    zone.classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) {
+      selectedImage = file;
+      input.files = e.dataTransfer.files;
+      img.src = URL.createObjectURL(file);
+      content.hidden = true;
+      preview.hidden = false;
+    }
+  });
+}
+
+// ===== Mobile menu =====
+function setupMenu() {
+  $('menuToggle')?.addEventListener('click', () => {
+    $('mobileMenu').classList.toggle('open');
+  });
+}
+
+// ===== Init =====
+document.addEventListener('DOMContentLoaded', () => {
+  loadSession();
+  updateNav();
+  setupUpload();
+  setupMenu();
+  showPage('home');
+
+  // إغلاق النافذة عند الضغط خارجها
+  ['editModal', 'resetModal'].forEach(id => {
+    const el = $(id);
+    if (!el) return;
+    el.addEventListener('click', (e) => {
+      if (e.target === el) {
+        if (id === 'editModal') closeEditModal();
+        else closeResetModal();
+      }
+    });
+  });
+});
+
+</script>
+</body>
+</html>
